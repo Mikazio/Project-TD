@@ -12,7 +12,7 @@ exports.getAllTodos = (request, response) => {
                     todoId: doc.id,
                     title: doc.data().title,
                     body: doc.data().body,
-                    createAt: doc.data().createdAt,
+                    createAt: doc.data().createAt,
                 });
             });
             return response.json(todos);
@@ -67,4 +67,21 @@ exports.deleteTodo = (request, response)  => {
             console.error(err);
             return response.status(500).json({ error: err.code });
         });
+};
+
+exports.editTodo = ( request,response ) => {
+    if(request.body.todoId || request.body.createAt){
+        response.status(403).json({message: 'Not allowed to edit'});
+    }
+    let document = db.collection('todos').doc(`${request.params.todoId}`);
+    document.update(request.body)
+    .then(() => {
+        response.json({message: 'Updated successfully'});
+    })
+    .catch((err) => {
+        console.err(err);
+        return response.status(500).json({
+            error:err.code
+        });
+    });
 };
