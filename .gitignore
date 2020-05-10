@@ -66,3 +66,6 @@ node_modules/
 
 # remove package-lock
 package-lock.json
+
+# Remove .DS_Store
+.DS_Store
