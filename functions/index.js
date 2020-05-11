@@ -16,7 +16,8 @@ const {
 } = require('./APIs/todos')
 
 const {
-    loginUser
+    loginUser,
+    signUpUser
  } = require('./APIs/users')
 
 app.get('/todos', getAllTodos);
@@ -25,5 +26,6 @@ app.delete('/todo/:todoId', deleteTodo);
 app.put('/todo/:todoId', editTodo);
 
 app.post('/login', loginUser);
+app.post('/signup', signUpUser);
 
 exports.api = functions.region('asia-northeast1').https.onRequest(app);
